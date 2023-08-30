@@ -11,11 +11,11 @@ namespace Team_Text_RPG
         internal static Inventory myinventory;
         internal static Equipment equipmentitem;
 
-        static void Main(string[] args)
-        {
-            GameDataSetting();
-            DisplayGameIntro();
-        }
+        //static void Main(string[] args)
+        //{
+        //    GameDataSetting();
+        //    DisplayGameIntro();
+        //}
 
         static void GameDataSetting()
         {
