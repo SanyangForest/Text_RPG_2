@@ -3,30 +3,68 @@ using Text_Rpg;
 
 namespace Team_Text_RPG
 {
-    internal class Program //커밋 해보기
-
+    internal class Program 
     {
-
         internal static Character player;
         internal static Inventory myinventory;
         internal static Equipment equipmentitem;
 
+        private static string userName; // 이름 받아오기 위한 변수
+
         static void Main(string[] args)
         {
-            GameDataSetting();
+            GameStartScene();
+            // GameDataSetting();
             DisplayGameIntro();
         }
-
-        static void GameDataSetting()
+        static void GameStartScene() // 게임 시작 화면에서 유저입력 - 이름 설정, 직업 선택
         {
-            // 캐릭터 정보 세팅
-            player = new Character("Chad", "전사1", 1, 10, 5, 100, 1500);
+            Console.Clear();
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(" ! ~ Dungeon Of Sparta ~ ! ");
+            Console.ResetColor();
+            Console.WriteLine();
+            Console.Write(" 이름을 입력해주세요 : ");
+            userName = Console.ReadLine(); 
+            Console.WriteLine();
+            Console.WriteLine(" 직업을 선택해주세요 \n 1: 전사 2: 궁수 3: 도적");
+            int input = CheckValidInput(1,3);
+            switch(input)
+            {
+                case 1:
+                    GameDataSetting(1); // 전사
+                    break;
+                case 2:
+                    GameDataSetting(2); // 궁수
+                    break;
+                case 3:
+                    GameDataSetting(3); // 도적
+                    break;
+            }
+        }
+        static void GameDataSetting(int jobs)
+        {
+            switch(jobs)
+            {
+                case 1:
+                    player = new Character(userName, "전사", 1, 10, 10, 150, 2000, 0.0f);
+                    // ex - 검, 사슬 갑옷
+                    break;
+                case 2:
+                    player = new Character(userName, "궁수", 1, 15, 5, 100, 2000, 0.0f);
+                    // ex - 활, 천 갑옷
+                    break;
+                case 3:
+                    player = new Character(userName, "도적", 1, 12, 8, 130, 2000, 0.0f);
+                    // ex - 단검, 가죽 갑옷
+                    break;
+            } // 초기 아이템 추가 부탁드립니다 - kim to jang
 
             // 인벤토리 정보 세팅
             myinventory = new Inventory();
             equipmentitem = new Equipment(0, 0, 0);
 
-            // 아이템 정보 세팅
         }
 
         internal static void DisplayGameIntro()
@@ -247,7 +285,10 @@ namespace Team_Text_RPG
         public int Hp { get; }
         public int Gold { get; }
 
-        public Character(string name, string job, int level, int atk, int def, int hp, int gold)
+        public float Exp { get; set; }
+        public bool MaxExp { get; set; }
+        // 경험치 정보 추가
+        public Character(string name, string job, int level, int atk, int def, int hp, int gold, float exp)
         {
             Name = name;
             Job = job;
@@ -256,6 +297,7 @@ namespace Team_Text_RPG
             Def = def;
             Hp = hp;
             Gold = gold;
+            Exp = exp;
         }
     }
 }
