@@ -286,7 +286,7 @@ namespace Team_Text_RPG
         public int Gold { get; }
 
         public float Exp { get; set; }
-        public bool MaxExp { get; set; }
+        public float MaxExp { get; set; }
         // 경험치 정보 추가
         public Character(string name, string job, int level, int atk, int def, int hp, int gold, float exp)
         {
