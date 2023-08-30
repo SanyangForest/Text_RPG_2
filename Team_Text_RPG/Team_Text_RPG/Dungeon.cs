@@ -7,19 +7,14 @@ using System.Threading.Tasks;
 namespace Text_Rpg
 {
     internal class Dungeon
-    {
-
-
-
-        Character player = new Character("Chad", "전사", 1, 10, 5, 100, 1500);
-
+    {     
         internal void ChoiceDungeon()
         {
-
+           
 
             Console.Clear();
             Console.WriteLine("1. 마을");
-            Console.WriteLine("2. 베틀");
+            Console.WriteLine("2. 배틀");
             Console.WriteLine("진입하시겠습니까?");
 
             int input = Program.CheckValidInput(1, 2);
@@ -49,16 +44,16 @@ namespace Text_Rpg
             Monster randomMonster = monsters[randomIndex];
 
             Console.WriteLine($"{randomMonster.Name}가 등장했다!");
-            while (randomMonster.IsDeath() == false && player.IsDeath() == false)
+            while (randomMonster.IsDeath() == false && Program.player.IsDeath() == false)
             {
                 Console.Clear();
 
                 randomMonster.StatusRender(randomMonster.Name);
 
 
-                if (player.IsDeath() == false)
+                if (Program.player.IsDeath() == false)
                 {
-                    randomMonster.BattleLogic(player);
+                    randomMonster.BattleLogic(Program.player);
                 }
 
 
@@ -68,11 +63,11 @@ namespace Text_Rpg
                 Console.WriteLine("1. 때린다");
                 Console.WriteLine("2. 아이템사용");
                 Console.WriteLine("3. 도망간다");
-                if (player.IsDeath() == true)
+                if (Program.player.IsDeath() == true)
                 {
 
 
-                    bool isPlayerDead = player.IsDeath();
+                    bool isPlayerDead = Program.player.IsDeath();
                     isPlayerDead = false;
 
                     Console.Clear();
@@ -99,7 +94,7 @@ namespace Text_Rpg
                 switch (input)
                 {
                     case 1:
-                        player.BattleLogic(randomMonster);
+                        Program.player.BattleLogic(randomMonster);
                         break;
                     case 2:
                         // 스킬
@@ -205,11 +200,8 @@ namespace Text_Rpg
 
         public void BattleLogic(FightUnit OtherUnit)
         {
-
-
             Console.WriteLine($"Lv.{Level} {Name} 의 공격!");
             Console.WriteLine($" {OtherUnit.Name} 을(를) 맞췄습니다.  [데미지: {Atk}]");
-
             Console.WriteLine($"Lv.{OtherUnit.Level} {OtherUnit.Name}");
             Console.WriteLine($"HP{OtherUnit.Hp}-> {OtherUnit.Hp -= Atk}");
             Console.WriteLine($"HP {OtherUnit.Hp}");
@@ -226,10 +218,8 @@ namespace Text_Rpg
         public Monster(string name, int level, int atk, int hp, int gold)
         {
             Name = name;
-
             Level = level;
             Atk = atk;
-
             Hp = hp;
             Gold = gold;
         }
