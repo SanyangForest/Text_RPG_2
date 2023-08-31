@@ -236,6 +236,8 @@ namespace Text_Rpg
         public int Atk { get; set; }
 
         public int Gold { get; set; }
+        public int CriticalChance { get; set; }//치명타 확률 변수 선언
+        public int EvadeChance { get; set; }//회피 확률 변수 선언
 
         public bool IsDeath()
         {
@@ -258,14 +260,35 @@ namespace Text_Rpg
         public void BattleLogic(FightUnit OtherUnit)
         {
             Console.WriteLine($"Lv.{Level} {Name} 의 공격!");
-            Console.WriteLine($" {OtherUnit.Name} 을(를) 맞췄습니다.  [데미지: {Atk}]");
-            Console.WriteLine($"Lv.{OtherUnit.Level} {OtherUnit.Name}");
-            Console.WriteLine($"HP{OtherUnit.Hp}-> {OtherUnit.Hp -= Atk}");
-            Console.WriteLine($"HP {OtherUnit.Hp}");
+
+            // 치명타 확률 계산
+            bool isCritical = new Random().Next(100) < CriticalChance;
+            int damage = isCritical ? Atk * 2 : Atk;
+
+            // 회피 확률 계산
+            bool isEvaded = new Random().Next(100) < OtherUnit.EvadeChance;
+
+            // 계산식 변경
+            if (!isEvaded)
+            {
+                if (isCritical)
+                {
+                    Console.WriteLine("치명타!");
+                }
+                Console.WriteLine($" {OtherUnit.Name} 을(를) 맞췄습니다.  [데미지: {damage}]");
+                Console.WriteLine($"Lv.{OtherUnit.Level} {OtherUnit.Name}");
+                Console.WriteLine($"HP{OtherUnit.Hp}-> {OtherUnit.Hp -= damage}");
+                Console.WriteLine($"HP {OtherUnit.Hp}");
+            }
+            else
+            {
+                Console.WriteLine($"{OtherUnit.Name} 의 공격을 회피했습니다!");
+            }
+
         }
 
 
-  
+
 
     }
 
@@ -283,6 +306,8 @@ namespace Text_Rpg
             Atk = atk;
             Hp = hp;
             Gold = gold;
+            CriticalChance = 5; // 치명타 확률: 5%
+            EvadeChance = 10; // 회피 확률: 10%
         }
     }
 
