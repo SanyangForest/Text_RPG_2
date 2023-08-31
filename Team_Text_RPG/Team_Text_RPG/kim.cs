@@ -11,6 +11,7 @@ namespace Team_Text_RPG
 
         private static string userName; // 이름 받아오기 위한 변수
 
+<<<<<<< Updated upstream
         public enum Jobs 
         {
             warrior = 1,
@@ -23,6 +24,14 @@ namespace Team_Text_RPG
             DisplayGameIntro();
         }
         
+=======
+        //static void Main(string[] args)
+        //{
+        //    GameStartScene();
+        //    // GameDataSetting();
+        //    DisplayGameIntro();
+        //}
+>>>>>>> Stashed changes
         static void GameStartScene() // 게임 시작 화면에서 유저입력 - 이름 설정, 직업 선택
         {
             Console.Clear();
