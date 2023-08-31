@@ -53,7 +53,7 @@ namespace Team_Text_RPG
             switch (jobs)
             {
                 case Jobs.warrior:
-                    player = new Character(userName, "전사", 1, 10, 10, 150, 2000, 0.0f);
+                    player = new Character(userName, "전사", 1, 200, 100, 150, 2000, 0.0f);
                     Console.WriteLine($" 환영합니다 !!! {userName} 님, 전사를 선택하셨습니다.");
                     // ex - 검, 사슬 갑옷
                     break;
@@ -88,7 +88,7 @@ namespace Team_Text_RPG
             int i = 0;
             while (i < 3)
             {
-                Thread.Sleep(500);
+                Thread.Sleep(00);
                 Console.Write(" ▷");
                 i++;
             }
@@ -387,7 +387,18 @@ namespace Team_Text_RPG
         public void Heal()
         {
             MaxHp = Level * 100;
-            Hp = MaxHp;
+          
+            if(Hp == MaxHp)
+            {
+                Console.WriteLine("회복할 체력이 없습니다");
+            }
+            else
+            {
+                Console.WriteLine("체력이 전부 회복 됬습니다");
+                Hp = MaxHp;
+            }
+          
+           
         }
 
         public Character(string name, string job, int level, int atk, int def, int hp, int gold, float exp)
