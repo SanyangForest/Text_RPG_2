@@ -8,17 +8,17 @@ internal class Program //커밋 해보기
     public static Character player;
     internal static Inventory myinventory;
     internal static Equipment equipmentitem;
-
-    static void Main(string[] args)
-    {
-        GameDataSetting();
-        DisplayGameIntro();
-    }
-
+    
+    //static void Main(string[] args)
+    //{
+    //    GameDataSetting();
+    //    DisplayGameIntro();
+    //}
+    
     static void GameDataSetting()
     {
         // 캐릭터 정보 세팅
-        player = new Character("Chad", "전사1", 1, 10, 5, 100, 1500);
+        player = new Character("Chad", "전사1", 1, 200, 5, 100, 1500);
 
         // 인벤토리 정보 세팅
         myinventory = new Inventory();
@@ -244,6 +244,12 @@ public class Character : FightUnit
     //public int Def { get; }
     //public int Hp { get; }
     //public int Gold { get; }
+   
+    public void Heal()
+    {
+        MaxHp = Level * 100;
+        Hp = MaxHp;
+    }
 
     public Character(string name, string job, int level, int atk, int def, int hp, int gold)
     {
