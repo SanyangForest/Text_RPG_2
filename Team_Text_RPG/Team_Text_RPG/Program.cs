@@ -1,4 +1,6 @@
 ﻿
+using static Team_Text_RPG.Program;
+
 namespace Team_Text_RPG
 {
     internal class Program 
@@ -13,6 +15,7 @@ namespace Team_Text_RPG
         public static Item clotharmor;
         public static Item dagger;
         public static Item leatherarmor;
+        public static Dictionary<string, int> itemPrices = new Dictionary<string, int>();
 
         public enum Jobs
         {
@@ -89,12 +92,12 @@ namespace Team_Text_RPG
             equipmentitem = new Equipment(0, 0, 0);
 
             //아이템 정보 세팅
-            sword = new Item("철검", "기초적인 철검", 1, 0, 0, false);
-            chainmail = new Item("사슬 갑옷", "기초적인 사슬 갑옷", 0, 0, 0, false);
-            bow = new Item("나무 활", "기초적인 나무 활", 1, 0, 0, false);
-            clotharmor = new Item("천 갑옷", "기초적인 천 갑옷", 0, 1, 0, false);
-            dagger = new Item("단검", "기초적인 단검", 1, 0, 0, false);
-            leatherarmor = new Item("가죽 갑옷", "기초적인 가죽 갑옷", 0, 1, 0, false);
+            sword = new Item("철검", "기초적인 철검", 1, 0, 0, 100, false);
+            chainmail = new Item("사슬 갑옷", "기초적인 사슬 갑옷", 0, 0, 0, 100, false);
+            bow = new Item("나무 활", "기초적인 나무 활", 1, 0, 0, 100, false);
+            clotharmor = new Item("천 갑옷", "기초적인 천 갑옷", 0, 1, 0, 100, false);
+            dagger = new Item("단검", "기초적인 단검", 1, 0, 0, 100, false);
+            leatherarmor = new Item("가죽 갑옷", "기초적인 가죽 갑옷", 0, 1, 0, 100, false);
         }
 
         static void Loading() // 로딩 함수 추가
@@ -253,42 +256,69 @@ namespace Team_Text_RPG
             Console.WriteLine();
             Console.WriteLine(" 원하시는 행동을 입력해주세요! ");
 
-            int input = CheckValidInput(0, 2);
+            int input = CheckValidInput(0, 6);
             switch (input)
             {
                 case 0:
                     DisplayGameIntro();
                     break;
                 case 1:
-                    // 구매하기
+                    BuyItem(sword);
                     break;
                 case 2:
-                    // 판매하기
+                    BuyItem(chainmail);
                     break;
-
+                case 3:
+                    BuyItem(bow);
+                    break;
+                case 4:
+                    BuyItem(clotharmor);
+                    break;
+                case 5:
+                    SellItem();
+                    break;
             }
 
         }
 
-        static void BuyItem()
+        static void BuyItem(Item item)
         {
-            if (player.Gold >= itemPrice)
-            {
-                player.ModifyGold(-itemPrice);
-                Console.WriteLine($"{itemName}을(를) 구매했습니다.");
-                Console.WriteLine("남은 소지액: " + player.Gold);
-                myinventory.AddItemInventory(itemName);
+            string itemName = item.Name;
+            int itemPrice = item.Price;
 
-                Console.WriteLine("아무 키나 누르면 메인 화면으로 돌아갑니다.");
-                Console.ReadKey();
-                DisplayGameIntro();
-            }
-            else
+            Console.Clear();
+            Console.WriteLine($"[구매] {itemName}");
+            Console.WriteLine($"가격: {itemPrice}G");
+            Console.WriteLine("1. 구매하기");
+            Console.WriteLine("2. 취소");
+
+            int input = CheckValidInput(1, 2);
+            switch (input)
             {
-                Console.WriteLine("소지금이 부족합니다.");
-                Console.WriteLine("아무 키나 누르면 메인 화면으로 돌아갑니다.");
-                Console.ReadKey();
-                DisplayGameIntro();
+                case 1:
+                    if (player.Gold >= itemPrice)
+                    {
+                        player.ModifyGold(-itemPrice);
+                        Console.WriteLine($"{itemName}을(를) 구매했습니다.");
+                        Console.WriteLine("남은 소지액: " + player.Gold);
+
+                        myinventory.AddItemInventory(item); // 아이템을 인벤토리에 추가
+
+                        Console.WriteLine("아무 키나 누르면 메인 화면으로 돌아갑니다.");
+                        Console.ReadKey();
+                        DisplayGameIntro();
+                    }
+                    else
+                    {
+                        Console.WriteLine("소지금이 부족합니다.");
+                        Console.WriteLine("아무 키나 누르면 메인 화면으로 돌아갑니다.");
+                        Console.ReadKey();
+                        DisplayGameIntro();
+                    }
+                    break;
+                case 2:
+                    Shop();
+                    break;
             }
         }
 
@@ -297,7 +327,7 @@ namespace Team_Text_RPG
             Console.Clear();
             Console.WriteLine("판매할 아이템을 선택하세요:");
 
-            for (int i = 0; i < pInventory.Count; i++)
+            for (int i = 0; i < player.Inventory.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {player.Inventory[i]}");
             }
@@ -511,6 +541,7 @@ namespace Team_Text_RPG
             MaxHp = Level * 100;
             Hp = MaxHp;
         }
+        public List<string> Inventory { get; private set; }
 
         public Character(string name, string job, int level, int atk, int def, int hp, int gold, float exp)
         {
@@ -522,6 +553,11 @@ namespace Team_Text_RPG
             Hp = hp;
             Gold = gold;
             Exp = exp;
+            Inventory = new List<string>();
+
+
+
+
 
             CriticalChance = 50; // 치명타 확률: 50%
             EvadeChance = 10; // 회피 확률: 10%
@@ -529,6 +565,14 @@ namespace Team_Text_RPG
         public void ModifyGold(int amount)
         {
             Gold += amount;
+        }
+        public void RemoveItem(string itemName)
+        {
+            Inventory.Remove(itemName);
+        }
+        public int GetItemPrice(string itemName)
+        {
+            return itemPrices.ContainsKey(itemName) ? itemPrices[itemName] : 0;
         }
     }    
 }
