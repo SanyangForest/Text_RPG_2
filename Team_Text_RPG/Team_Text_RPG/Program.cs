@@ -8,13 +8,13 @@ internal class Program //커밋 해보기
     public static Character player;
     internal static Inventory myinventory;
     internal static Equipment equipmentitem;
-
-    static void Main(string[] args)
-    {
-        GameDataSetting();
-        DisplayGameIntro();
-    }
-
+    
+    //static void Main(string[] args)
+    //{
+    //    GameDataSetting();
+    //    DisplayGameIntro();
+    //}
+    
     static void GameDataSetting()
     {
         // 캐릭터 정보 세팅
