@@ -5,11 +5,11 @@ internal class Program //커밋
 {
     private static Character player;
 
-    static void Main(string[] args)
-    {
-        Setting();
-        Intro();
-    }
+    //static void Main(string[] args)
+    //{
+    //    Setting();
+    //    Intro();
+    //}
 
     static void Setting()
     {

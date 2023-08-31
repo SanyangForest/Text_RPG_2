@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Text_Rpg
+﻿
+namespace Team_Text_RPG
 {
-    
     internal class Dungeon
     {
          
@@ -231,8 +225,6 @@ namespace Text_Rpg
         public int Def { get; set; }
         public int MaxHp { get; set; }
         public int Hp { get; set; }
-
-
         public int Atk { get; set; }
 
         public int Gold { get; set; }
