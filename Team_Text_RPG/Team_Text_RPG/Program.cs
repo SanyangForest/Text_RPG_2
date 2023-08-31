@@ -269,6 +269,77 @@ namespace Team_Text_RPG
             }
 
         }
+
+        static void BuyItem(string itemName, int itemPrice)
+        {
+            if (player.Gold >= itemPrice)
+            {
+                player.ModifyGold(-itemPrice);
+                Console.WriteLine($"{itemName}을(를) 구매했습니다.");
+                Console.WriteLine("남은 소지액: " + player.Gold);
+                player.AddItem(itemName);
+
+                Console.WriteLine("아무 키나 누르면 메인 화면으로 돌아갑니다.");
+                Console.ReadKey();
+                DisplayGameIntro();
+            }
+            else
+            {
+                Console.WriteLine("소지금이 부족합니다.");
+                Console.WriteLine("아무 키나 누르면 메인 화면으로 돌아갑니다.");
+                Console.ReadKey();
+                DisplayGameIntro();
+            }
+        }
+
+        static void SellItem()
+        {
+            Console.Clear();
+            Console.WriteLine("판매할 아이템을 선택하세요:");
+
+            for (int i = 0; i < player.Inventory.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {player.Inventory[i]}");
+            }
+
+            Console.WriteLine("0. 취소");
+
+            int input = CheckValidInput(0, player.Inventory.Count);
+            if (input == 0)
+            {
+                Shop();
+            }
+            else
+            {
+                SellConfirmed(player.Inventory[input - 1]);
+            }
+        }
+
+        static void SellConfirmed(string itemName)
+        {
+            int sellPrice = player.GetItemPrice(itemName) / 3;
+            Console.Clear();
+            Console.WriteLine($"{itemName}을(를) 판매합니다.");
+            Console.WriteLine($"판매 가격: {sellPrice}");
+            Console.WriteLine("1. 판매하기");
+            Console.WriteLine("2. 취소");
+
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    player.ModifyGold(sellPrice);
+                    player.RemoveItem(itemName);
+                    Console.WriteLine($"{itemName}을(를) 판매했습니다. 소지금: {player.Gold}");
+                    Console.WriteLine("아무 키나 누르면 메인 화면으로 돌아갑니다.");
+                    Console.ReadKey();
+                    Shop(); // 판매하기 완료 후에는 상점으로 돌아가도록 변경
+                    break;
+                case 2:
+                    Shop();
+                    break;
+            }
+        }
         static void DisplayEquipItem()
         {
             Console.Clear();
@@ -452,6 +523,10 @@ namespace Team_Text_RPG
 
             CriticalChance = 50; // 치명타 확률: 50%
             EvadeChance = 10; // 회피 확률: 10%
+        }
+        public void ModifyGold(int amount)
+        {
+            Gold += amount;
         }
     }    
 }
