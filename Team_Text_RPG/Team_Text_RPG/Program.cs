@@ -7,7 +7,13 @@ namespace Team_Text_RPG
         internal static Inventory myinventory;
         internal static Equipment equipmentitem;
         private static string userName;
-        
+        public static Item sword;
+        public static Item chainmail;
+        public static Item bow;
+        public static Item clotharmor;
+        public static Item dagger;
+        public static Item leatherarmor;
+
         public enum Jobs
         {
             warrior = 1,
@@ -81,6 +87,14 @@ namespace Team_Text_RPG
             // 인벤토리 정보 세팅
             myinventory = new Inventory();
             equipmentitem = new Equipment(0, 0, 0);
+
+            //아이템 정보 세팅
+            sword = new Item("철검", "기초적인 철검", 1, 0, 0, false);
+            chainmail = new Item("사슬 갑옷", "기초적인 사슬 갑옷", 0, 0, 0, false);
+            bow = new Item("나무 활", "기초적인 나무 활", 1, 0, 0, false);
+            clotharmor = new Item("천 갑옷", "기초적인 천 갑옷", 0, 1, 0, false);
+            dagger = new Item("단검", "기초적인 단검", 1, 0, 0, false);
+            leatherarmor = new Item("가죽 갑옷", "기초적인 가죽 갑옷", 0, 1, 0, false);
         }
 
         static void Loading() // 로딩 함수 추가
@@ -154,9 +168,9 @@ namespace Team_Text_RPG
             Console.WriteLine($" 이름 : {player.Name} ");
             Console.WriteLine($" 직업 : {player.Job} ");
             Console.WriteLine($" 레벨 : {player.Level} ");
-            Console.Write($" 공격력 : {player.Atk} ");
+            Console.Write($" 공격력 : {player.Atk} (+{equipmentitem.AddAtk})");
             Console.WriteLine();
-            Console.Write($" 방어력 : {player.Def} ");
+            Console.Write($" 방어력 : {player.Def} (+{equipmentitem.AddDef})");
             Console.WriteLine();
             Console.WriteLine($" 돈 : {player.Gold}G ");
             Console.WriteLine();
@@ -183,13 +197,8 @@ namespace Team_Text_RPG
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine(" [아이템 목록] ");
             Console.ResetColor();
-            Console.WriteLine();
 
-            // 아이템 목록 출력 성민님 해주세요!
-            // foreach (string item in player.Inventory)
-            // {
-            //    Console.WriteLine(item);
-            // }
+            myinventory.ItemDisplay();
 
             Console.WriteLine("1. 장착 관리");
             Console.WriteLine("0. 나가기");
@@ -268,25 +277,28 @@ namespace Team_Text_RPG
             Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.");
             Console.WriteLine();
             Console.WriteLine("[아이템 목록]");
-            Console.WriteLine($"-1 ");
-            Console.WriteLine($"-2 ");
+            
+            myinventory.ItemDisplay();
+
             Console.WriteLine();
             Console.WriteLine("0. 나가기");
 
-            int input = CheckValidInput(0, 2);
-            switch (input)
+            int input = CheckValidInput(0, myinventory.InventoryItem.Count);
+            if (input == 0)
             {
-                case 0:
-                    DisplayInventory();
-                    break;
-
-                case 1:
-                    DisplayEquipItem();
-                    break;
-
-                case 2:
-                    DisplayEquipItem();
-                    break;
+                DisplayInventory();
+            }
+            else
+            {
+                if (myinventory.InventoryItem[input - 1].IsEquip == false)
+                {
+                    equipmentitem.EquipingItem(myinventory.InventoryItem[input - 1]);
+                }
+                else
+                {
+                    equipmentitem.UnEquipingItem(myinventory.InventoryItem[input - 1]);
+                }
+                DisplayEquipItem();
             }
         }
         internal static int CheckValidInput(int min, int max)
@@ -305,6 +317,56 @@ namespace Team_Text_RPG
                 Console.WriteLine(" 잘못된 입력입니다! 다시 입력해주세요. ");
             }
         }
+        public class Inventory
+        {
+            public List<Item> InventoryItem = new List<Item>();
+            public void AddItemInventory(Item item)
+            {
+                InventoryItem.Add(item);
+            }
+            public void RemoveItemInventory(Item item)
+            {
+                InventoryItem.Remove(item);
+            }
+            public void ItemDisplay()
+            {
+                for (int i = 0; myinventory.InventoryItem.Count != i; i++)
+                {
+                    string ATK = "";
+                    string DEF = "";
+                    string HP = "";
+
+                    if (myinventory.InventoryItem[i].Atk > 0)
+                    {
+                        ATK = $"| 공격력 +{myinventory.InventoryItem[i].Atk}";
+                    }
+                    else
+                    {
+                        ATK = "";
+                    }
+
+                    if (myinventory.InventoryItem[i].Def > 0)
+                    {
+                        DEF = $"| 방어력 +{myinventory.InventoryItem[i].Def}";
+                    }
+                    else
+                    {
+                        DEF = "";
+                    }
+
+                    if (myinventory.InventoryItem[i].Hp > 0)
+                    {
+                        HP = $"| 체력 +{myinventory.InventoryItem[i].Hp}";
+                    }
+                    else
+                    {
+                        HP = "";
+                    }
+
+                    Console.WriteLine($"-{i + 1} {(myinventory.InventoryItem[i].IsEquip ? "[E]" : "")}{myinventory.InventoryItem[i].Name} {ATK} {DEF} {HP} | {myinventory.InventoryItem[i].Info}");
+                }
+            }
+        }
 
         public class Equipment
         {
@@ -318,7 +380,7 @@ namespace Team_Text_RPG
             public void UnEquipingItem(Item item)
             {
                 EquipItems.Remove(item);
-
+                equipmentitem.AddEquipItem();
                 item.IsEquip = !item.IsEquip;
             }
             public void AddEquipItem()
@@ -361,19 +423,6 @@ namespace Team_Text_RPG
             Def = def;
             Hp = hp;
             IsEquip = isEquip;
-        }
-    }
-
-    public class Inventory
-    {
-        public List<Item> InventoryItem = new List<Item>();
-        public void AddItemInventory(Item item)
-        {
-            InventoryItem.Add(item);
-        }
-        public void RemoveItemInventory(Item item)
-        {
-            InventoryItem.Remove(item);
         }
     }
 
