@@ -11,9 +11,15 @@ namespace Team_Text_RPG
 
 
             Console.Clear();
-            Console.WriteLine("1. 마을");
-            Console.WriteLine("2. 배틀");
-            Console.WriteLine("진입하시겠습니까?");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(" 당신의 길을 걸어가던 도중 표지판을 발견했습니다");
+            Console.WriteLine(" 어떤 길로 갈까요?");
+            Console.ResetColor();
+            Console.WriteLine();
+            Console.WriteLine("1. 시작의 마을");
+            Console.WriteLine("2. 스파르타 던전");
+            Console.WriteLine();
+            Console.WriteLine(" 어디로 이동할지 번호를 입력해주세요 ");
 
             int input = Program.CheckValidInput(1, 2);
             switch (input)
@@ -41,9 +47,9 @@ namespace Team_Text_RPG
                 Init();
             }
 
-          
 
 
+            Console.Clear();
             Monster[] monsters = { new Monster("대포미니언", 2, 10, 200, 200),   new Monster("미니언", 1, 5, 100, 100),   new Monster("공허충", 3, 10, 105, 300) };
 
             Random random = new Random();
@@ -66,7 +72,8 @@ namespace Team_Text_RPG
                 randomMonster.StatusRender(randomMonster.Name);
 
             }
-           
+            Console.WriteLine();
+            Console.WriteLine("확인하셨다면 엔터를 눌러주세요!");
             Console.ReadLine();
             Console.Clear();
 
@@ -265,7 +272,9 @@ namespace Team_Text_RPG
             {
                 if (isCritical)
                 {
-                    Console.WriteLine("치명타!");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(" [ 치명타! ]");
+                    Console.ResetColor();
                 }
                 Console.WriteLine($" {OtherUnit.Name} 을(를) 맞췄습니다.  [데미지: {damage}]");                           
                 Console.WriteLine($"HP{OtherUnit.Hp}-> {OtherUnit.Hp -= damage}");
