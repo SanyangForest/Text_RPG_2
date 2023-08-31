@@ -267,10 +267,11 @@ namespace Team_Text_RPG
                 {
                     Console.WriteLine("치명타!");
                 }
-                Console.WriteLine($" {OtherUnit.Name} 을(를) 맞췄습니다.  [데미지: {damage}]");
-                Console.WriteLine($"Lv.{OtherUnit.Level} {OtherUnit.Name}");
+                Console.WriteLine($" {OtherUnit.Name} 을(를) 맞췄습니다.  [데미지: {damage}]");                           
                 Console.WriteLine($"HP{OtherUnit.Hp}-> {OtherUnit.Hp -= damage}");
-                Console.WriteLine($"HP {OtherUnit.Hp}");
+                Console.WriteLine("================================================================================================= ");
+
+                Console.WriteLine($"이름:{OtherUnit.Name} HP {OtherUnit.Hp}");
             }
             else
             {
