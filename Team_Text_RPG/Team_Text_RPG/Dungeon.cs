@@ -288,7 +288,7 @@ namespace Team_Text_RPG
             }
             else
             {
-                Console.WriteLine($"{OtherUnit.Name} 의 공격을 회피했습니다!");
+                Console.WriteLine($"{OtherUnit.Name} 유저가 공격을 회피했습니다!");
             }
 
         }
