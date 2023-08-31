@@ -76,13 +76,7 @@ namespace Team_Text_RPG
             Thread.Sleep(1000);
             Console.WriteLine();
             Console.Write(" 캐릭터 생성 중 ");
-            int i = 0;
-            while (i < 3)
-            {
-                Thread.Sleep(1000);
-                Console.Write(" ▷");
-                i++;
-            }
+            Loading();
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine(" 캐릭터 생성이 완료되었습니다, 마을로 진입합니다. ");
@@ -93,7 +87,16 @@ namespace Team_Text_RPG
             myinventory = new Inventory();
             equipmentitem = new Equipment(0, 0, 0);
         }
-
+        static void Loading() // 로딩 함수 추가
+        {
+            int i = 0;
+            while (i < 3)
+            {
+                Thread.Sleep(500);
+                Console.Write(" ▷");
+                i++;
+            }
+        }
         internal static void DisplayGameIntro()
         {
             Dungeon dungeon = new Dungeon();
@@ -118,16 +121,24 @@ namespace Team_Text_RPG
             switch (input)
             {
                 case 1:
+                    Console.WriteLine(" 상태 창 이동 중 ");
+                    Loading();
                     DisplayMyInfo();
                     break;
 
                 case 2:
+                    Console.WriteLine(" 가방 이동 중 ");
+                    Loading();
                     DisplayInventory();
                     break;
                 case 3:
+                    Console.WriteLine(" 상점 이동 중 ");
+                    Loading();
                     Shop();
                     break;
                 case 4:
+                    Console.WriteLine(" 던전 이동 중 ");
+                    Loading();
                     dungeon.ChoiceDungeon();
                     break;
             }
