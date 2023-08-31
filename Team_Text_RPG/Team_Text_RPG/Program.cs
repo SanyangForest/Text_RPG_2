@@ -270,14 +270,14 @@ namespace Team_Text_RPG
 
         }
 
-        static void BuyItem(string itemName, int itemPrice)
+        static void BuyItem()
         {
             if (player.Gold >= itemPrice)
             {
                 player.ModifyGold(-itemPrice);
                 Console.WriteLine($"{itemName}을(를) 구매했습니다.");
                 Console.WriteLine("남은 소지액: " + player.Gold);
-                player.AddItem(itemName);
+                myinventory.AddItemInventory(itemName);
 
                 Console.WriteLine("아무 키나 누르면 메인 화면으로 돌아갑니다.");
                 Console.ReadKey();
@@ -297,7 +297,7 @@ namespace Team_Text_RPG
             Console.Clear();
             Console.WriteLine("판매할 아이템을 선택하세요:");
 
-            for (int i = 0; i < player.Inventory.Count; i++)
+            for (int i = 0; i < pInventory.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {player.Inventory[i]}");
             }
@@ -484,15 +484,17 @@ namespace Team_Text_RPG
         public int Atk { get; }
         public int Def { get; }
         public int Hp { get; }
+        public int Price { get; }
         public bool IsEquip { get; set; }
 
-        public Item(string name, string info, int atk, int def, int hp, bool isEquip)
+        public Item(string name, string info, int atk, int def, int hp, int price, bool isEquip)
         {
             Name = name;
             Info = info;
             Atk = atk;
             Def = def;
             Hp = hp;
+            Price = price;
             IsEquip = isEquip;
         }
     }
