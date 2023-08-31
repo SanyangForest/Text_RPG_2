@@ -42,19 +42,17 @@ namespace Team_Text_RPG
 
         public void Battle()
         {
-            if(FiledMonsterCount>0)
-            {
+           
                 Init();
-            }
-
+            
 
 
             Console.Clear();
-            Monster[] monsters = { new Monster("대포미니언", 2, 10, 200, 200),   new Monster("미니언", 1, 5, 100, 100),   new Monster("공허충", 3, 10, 105, 300) };
+            Monster[] monsters = { new Monster("대포미니언", 2, 10, 190, 200),   new Monster("미니언", 1, 5, 100, 100),   new Monster("공허충", 3, 10, 105, 300) };
 
             Random random = new Random();
 
-            int numberOfMonsters = random.Next(1, 3);
+            int numberOfMonsters = random.Next(1, 4);
 
             Console.WriteLine($"{numberOfMonsters}마리의 몬스터가 등장했다!");
 
@@ -70,19 +68,24 @@ namespace Team_Text_RPG
 
                 RandomMonsterList.Add( randomMonster);
                 randomMonster.StatusRender(randomMonster.Name);
+                FiledMonsterCount++;
 
             }
             Console.WriteLine();
             Console.WriteLine("확인하셨다면 엔터를 눌러주세요!");
             Console.ReadLine();
             Console.Clear();
-
         
             // 리스트를 순회하면서  상태 체크  << 비추 
             // 팔드위에 몬스트 수를   체크하면서 0 이되면 << 이부분 
 
             while (FiledMonsterCount <= 0 || Program.player.IsDeath() == false)//RandomMonsterList 의 요소가 전부 True일때  
             {
+
+               
+
+
+
                 int MonsterCount = 1;
                 Console.WriteLine("=================================================================================================");
                 foreach (Monster ArrRandomMonster in RandomMonsterList)
@@ -91,7 +94,7 @@ namespace Team_Text_RPG
                     Console.WriteLine($"{MonsterCount}   {ArrRandomMonster.Name}  Atk:{ArrRandomMonster.Atk},Hp{ArrRandomMonster.Hp} {DethStat}");
                     MonsterCount++;              
 
-                    FiledMonsterCount++;
+                  
                 }
                 Console.WriteLine("=================================================================================================");
 
@@ -108,31 +111,33 @@ namespace Team_Text_RPG
                                 Death();
                             }
                         }
-                        else
-                        {
-                            FiledMonsterCount--;
-                        }
+                        //else if((RandomMonsterList[i].IsDeath() == true))
+                        //{
+                        //    FiledMonsterCount--;
+                        //}
                        
                     }
                 }
+
+               
+
+
+
+
+                if (FiledMonsterCount <= 0)
+                {
+                    Console.Clear();
+                    reward();
+                }
+
                 Console.WriteLine("공격할 몬스터를 선택해주세요");
-
-
 
                 int InputMonster = Program.CheckValidInput(1, RandomMonsterList.Count)-1;
 
 
-
-
-                Console.WriteLine("1. 때린다");
+                     Console.WriteLine("1. 때린다");
                      Console.WriteLine("2. 회복");
                      Console.WriteLine("3. 도망간다");
-
-              
-                   
-
-
-
 
                     int input = Program.CheckValidInput(1, 3);
                     switch (input)
@@ -148,18 +153,17 @@ namespace Team_Text_RPG
                             Program.DisplayGameIntro();
                             break;
                     }
-
-                    Console.ReadLine();
+                if ((RandomMonsterList[InputMonster].IsDeath() == true))
+                {
+                    FiledMonsterCount--;
+                }
+                Console.ReadLine();
                 if (Program.player.IsDeath() == true)
                 {
                     Console.Clear();
                     Death();
                 }
-                if (randomMonster.IsDeath() == true)
-                {
-                    Console.Clear();
-                    reward();
-                }
+               
 
                 Console.Clear();
 
