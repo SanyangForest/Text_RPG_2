@@ -15,6 +15,7 @@ namespace Team_Text_RPG
         public static Item clotharmor;
         public static Item dagger;
         public static Item leatherarmor;
+        public static Item TrinityForce;
         public static Dictionary<string, int> itemPrices = new Dictionary<string, int>();
 
         public enum Jobs
@@ -98,6 +99,7 @@ namespace Team_Text_RPG
             clotharmor = new Item("천 갑옷", "기초적인 천 갑옷", 0, 1, 0, 100, false);
             dagger = new Item("단검", "기초적인 단검", 1, 0, 0, 100, false);
             leatherarmor = new Item("가죽 갑옷", "기초적인 가죽 갑옷", 0, 1, 0, 100, false);
+            TrinityForce = new Item("삼위일체", "준나 짱짱센 아이템", 33, 33, 33, 3300, false);
         }
 
         static void Loading() // 로딩 함수 추가
@@ -241,11 +243,13 @@ namespace Team_Text_RPG
             Console.ResetColor();
             Console.WriteLine();
             // 아이템 목록 출력 test.. 
-            Console.WriteLine("1. 도란검. 100메소");
-            Console.WriteLine("2. 도란방패. 150메소");
-            Console.WriteLine("3. 도란반지. 200메소");
-            Console.WriteLine("4. 삼위일체. 333메소");
-            Console.WriteLine("5. 판매하기");
+            Console.WriteLine("버튼을 누르면 구매 하실 수 있습니다");
+            Console.WriteLine("1. 철검. 100메소");
+            Console.WriteLine("2. 사슬 갑옷. 100메소");
+            Console.WriteLine("3. 나무 활. 100메소");
+            Console.WriteLine("4. 가죽갑옷. 100메소");
+            Console.WriteLine("5. 삼위일체. 3300메소");
+            Console.WriteLine("6. 판매하기");
             Console.WriteLine("0. 나가기");
 
             Console.WriteLine();
@@ -275,6 +279,9 @@ namespace Team_Text_RPG
                     BuyItem(clotharmor);
                     break;
                 case 5:
+                    BuyItem(TrinityForce);
+                    break;
+                case 6:
                     SellItem();
                     break;
             }
@@ -325,7 +332,7 @@ namespace Team_Text_RPG
         static void SellItem()
         {
             Console.Clear();
-            Console.WriteLine("판매할 아이템을 선택하세요:");
+            Console.WriteLine("미안하네 지금은 구매할 수 없네 나도 돈이 부족하거든 :");
 
             for (int i = 0; i < player.Inventory.Count; i++)
             {
