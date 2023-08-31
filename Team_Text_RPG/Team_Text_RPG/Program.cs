@@ -102,10 +102,10 @@ namespace Team_Text_RPG
             Console.Clear();
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(" ! ~ Dungeon Of Sparta ~ ! ");
+            Console.WriteLine(" ! ~ Dungen of Cheating City ~ ! ");
             Console.ResetColor();
             Console.WriteLine();
-            Console.WriteLine(" 스파르타 마을에 오신 여러분 환영합니다! ");
+            Console.WriteLine(" 커닝시티에 오신 여러분 환영합니다! ");
             Console.WriteLine(" 마을에서 할 수 있는 활동입니다. ");
             Console.WriteLine();
             Console.WriteLine(" 1. 상태 보기 ");
@@ -141,50 +141,6 @@ namespace Team_Text_RPG
                     break;
             }
         }
-        static void Shop()
-        {
-            Console.Clear();
-            Console.WriteLine();
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine(" ~ 상점 ~ ");
-            Console.ResetColor();
-            Console.WriteLine();
-            Console.WriteLine(" 아이템을 구매/판매할 수 있습니다. ");
-            Console.WriteLine();
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine($" [보유 골드] \t{player.Gold} G ");
-            Console.ResetColor();
-            Console.WriteLine();
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine(" [아이템 목록] ");
-            Console.ResetColor();
-            Console.WriteLine();
-
-            // 아이템 목록 출력 부탁드립니다.
-
-            Console.WriteLine();
-            Console.WriteLine(" 1. 구매하기 ");
-            Console.WriteLine(" 2. 판매하기 ");
-            Console.WriteLine();
-            Console.WriteLine(" 0. 나가기 ");
-            Console.WriteLine();
-            Console.WriteLine(" 원하시는 행동을 입력해주세요! ");
-            int input = CheckValidInput(0, 2);
-            switch (input)
-            {
-                case 0:
-                    DisplayGameIntro();
-                    break;
-                case 1:
-                    // 구매하기
-                    break;
-                case 2:
-                    // 판매하기
-                    break;
-
-            }
-
-        }
         static void DisplayMyInfo()
         {
             Console.Clear();
@@ -214,7 +170,6 @@ namespace Team_Text_RPG
                     break;
             }
         }
-
         static void DisplayInventory()
         {
             Console.Clear();
@@ -230,7 +185,11 @@ namespace Team_Text_RPG
             Console.ResetColor();
             Console.WriteLine();
 
-            // 아이템 목록 출력
+            // 아이템 목록 출력 성민님 해주세요!
+            // foreach (string item in player.Inventory)
+            // {
+            //    Console.WriteLine(item);
+            // }
 
             Console.WriteLine("1. 장착 관리");
             Console.WriteLine("0. 나가기");
@@ -245,39 +204,91 @@ namespace Team_Text_RPG
                 case 1:
                     DisplayEquipItem();
                     break;
+            }   
+        
+
+        
+
+        }
+        static void Shop()
+        {
+            Console.Clear();
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(" ~ 상점 ~ ");
+            Console.ResetColor();
+            Console.WriteLine();
+            Console.WriteLine(" 아이템을 구매/판매할 수 있습니다. ");
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine($" [보유 골드] \t{player.Gold} G ");
+            Console.ResetColor();
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine(" [아이템 목록] ");
+            Console.ResetColor();
+            Console.WriteLine();
+            // 아이템 목록 출력 test.. 
+            Console.WriteLine("1. 도란검. 100메소");
+            Console.WriteLine("2. 도란방패. 150메소");
+            Console.WriteLine("3. 도란반지. 200메소");
+            Console.WriteLine("4. 삼위일체. 333메소");
+            Console.WriteLine("5. 판매하기");
+            Console.WriteLine("0. 나가기");
+
+            Console.WriteLine();
+            Console.WriteLine(" 1. 구매하기 ");
+            Console.WriteLine(" 2. 판매하기 ");
+            Console.WriteLine();
+            Console.WriteLine(" 0. 나가기 ");
+            Console.WriteLine();
+            Console.WriteLine(" 원하시는 행동을 입력해주세요! ");
+
+            int input = CheckValidInput(0, 2);
+            switch (input)
+            {
+                case 0:
+                    DisplayGameIntro();
+                    break;
+                case 1:
+                    // 구매하기
+                    break;
+                case 2:
+                    // 판매하기
+                    break;
+
             }
 
-            static void DisplayEquipItem()
+        }
+        static void DisplayEquipItem()
+        {
+            Console.Clear();
+
+            Console.WriteLine("인벤토리 - 장착 관리");
+            Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.");
+            Console.WriteLine();
+            Console.WriteLine("[아이템 목록]");
+            Console.WriteLine($"-1 ");
+            Console.WriteLine($"-2 ");
+            Console.WriteLine();
+            Console.WriteLine("0. 나가기");
+
+            int input = CheckValidInput(0, 2);
+            switch (input)
             {
-                Console.Clear();
+                case 0:
+                    DisplayInventory();
+                    break;
 
-                Console.WriteLine("인벤토리 - 장착 관리");
-                Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.");
-                Console.WriteLine();
-                Console.WriteLine("[아이템 목록]");
-                Console.WriteLine($"-1 ");
-                Console.WriteLine($"-2 ");
-                Console.WriteLine();
-                Console.WriteLine("0. 나가기");
+                case 1:
+                    DisplayEquipItem();
+                    break;
 
-                int input = CheckValidInput(0, 2);
-                switch (input)
-                {
-                    case 0:
-                        DisplayInventory();
-                        break;
-
-                    case 1:
-                        DisplayEquipItem();
-                        break;
-
-                    case 2:
-                        DisplayEquipItem();
-                        break;
-                }
+                case 2:
+                    DisplayEquipItem();
+                    break;
             }
         }
-
         internal static int CheckValidInput(int min, int max)
         {
             while (true)
@@ -389,7 +400,7 @@ namespace Team_Text_RPG
             Hp = hp;
             Gold = gold;
             Exp = exp;
-            
+
             CriticalChance = 50; // 치명타 확률: 50%
             EvadeChance = 10; // 회피 확률: 10%
         }
