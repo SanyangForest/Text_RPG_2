@@ -234,6 +234,8 @@ namespace Team_Text_RPG
             Console.WriteLine();
             Console.WriteLine(" 아이템을 구매/판매할 수 있습니다. ");
             Console.WriteLine();
+            Console.WriteLine(" 버튼을 누르면 구매 하실 수 있습니다");
+            Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine($" [보유 골드] \t{player.Gold} G ");
             Console.ResetColor();
@@ -243,20 +245,15 @@ namespace Team_Text_RPG
             Console.ResetColor();
             Console.WriteLine();
             // 아이템 목록 출력 test.. 
-            Console.WriteLine("버튼을 누르면 구매 하실 수 있습니다");
-            Console.WriteLine("1. 철검. 100메소");
-            Console.WriteLine("2. 사슬 갑옷. 100메소");
-            Console.WriteLine("3. 나무 활. 100메소");
-            Console.WriteLine("4. 가죽갑옷. 100메소");
-            Console.WriteLine("5. 삼위일체. 3300메소");
-            Console.WriteLine("6. 판매하기");
-            Console.WriteLine("0. 나가기");
-
+            
+            Console.WriteLine(" 1. 철검. 100메소");
+            Console.WriteLine(" 2. 사슬 갑옷. 100메소");
+            Console.WriteLine(" 3. 나무 활. 100메소");
+            Console.WriteLine(" 4. 가죽갑옷. 100메소");
+            Console.WriteLine(" 5. 삼위일체. 3300메소");
+            Console.WriteLine(" 6. 판매하기");
+            Console.WriteLine(" 0. 나가기");
             Console.WriteLine();
-            Console.WriteLine(" 1. 구매하기 ");
-            Console.WriteLine(" 2. 판매하기 ");
-            Console.WriteLine();
-            Console.WriteLine(" 0. 나가기 ");
             Console.WriteLine();
             Console.WriteLine(" 원하시는 행동을 입력해주세요! ");
 
