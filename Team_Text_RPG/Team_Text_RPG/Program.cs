@@ -78,7 +78,6 @@ namespace Team_Text_RPG
                     // ex - 단검, 가죽 갑옷
                     break;
             }
-            Thread.Sleep(1000);
             Console.WriteLine();
             Console.Write(" 캐릭터 생성 중 ");
             Loading();
@@ -94,7 +93,7 @@ namespace Team_Text_RPG
 
             //아이템 정보 세팅
             sword = new Item("철검", "기초적인 철검", 1, 0, 0, 100, false);
-            chainmail = new Item("사슬 갑옷", "기초적인 사슬 갑옷", 0, 0, 0, 100, false);
+            chainmail = new Item("사슬 갑옷", "기초적인 사슬 갑옷", 0, 1, 0, 100, false);
             bow = new Item("나무 활", "기초적인 나무 활", 1, 0, 0, 100, false);
             clotharmor = new Item("천 갑옷", "기초적인 천 갑옷", 0, 1, 0, 100, false);
             dagger = new Item("단검", "기초적인 단검", 1, 0, 0, 100, false);
@@ -107,7 +106,7 @@ namespace Team_Text_RPG
             int i = 0;
             while (i < 3)
             {
-                Thread.Sleep(00);
+                Thread.Sleep(300);
                 Console.Write(" ▷");
                 i++;
             }
@@ -235,6 +234,8 @@ namespace Team_Text_RPG
             Console.WriteLine();
             Console.WriteLine(" 아이템을 구매/판매할 수 있습니다. ");
             Console.WriteLine();
+            Console.WriteLine(" 버튼을 누르면 구매 하실 수 있습니다");
+            Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine($" [보유 골드] \t{player.Gold} G ");
             Console.ResetColor();
@@ -244,20 +245,15 @@ namespace Team_Text_RPG
             Console.ResetColor();
             Console.WriteLine();
             // 아이템 목록 출력 test.. 
-            Console.WriteLine("버튼을 누르면 구매 하실 수 있습니다");
-            Console.WriteLine("1. 철검. 100메소");
-            Console.WriteLine("2. 사슬 갑옷. 100메소");
-            Console.WriteLine("3. 나무 활. 100메소");
-            Console.WriteLine("4. 가죽갑옷. 100메소");
-            Console.WriteLine("5. 삼위일체. 3300메소");
-            Console.WriteLine("6. 판매하기");
-            Console.WriteLine("0. 나가기");
-
+            
+            Console.WriteLine(" 1. 철검. 100메소");
+            Console.WriteLine(" 2. 사슬 갑옷. 100메소");
+            Console.WriteLine(" 3. 나무 활. 100메소");
+            Console.WriteLine(" 4. 가죽갑옷. 100메소");
+            Console.WriteLine(" 5. 삼위일체. 3300메소");
+            Console.WriteLine(" 6. 판매하기");
+            Console.WriteLine(" 0. 나가기");
             Console.WriteLine();
-            Console.WriteLine(" 1. 구매하기 ");
-            Console.WriteLine(" 2. 판매하기 ");
-            Console.WriteLine();
-            Console.WriteLine(" 0. 나가기 ");
             Console.WriteLine();
             Console.WriteLine(" 원하시는 행동을 입력해주세요! ");
 
