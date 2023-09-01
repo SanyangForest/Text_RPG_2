@@ -17,7 +17,8 @@
 - 판매 기능 (미구현)
 - 장비 세트 옵션 기능
 
-## 4. 던전 [자세히 보기 ] ((https://github.com/SanyangForest/Text_RPG_2/wiki/%EB%8D%98%EC%A0%84-%EC%86%A1%EC%8A%B9%ED%9B%88&%EB%A7%B9%EC%A3%BC%ED%95%9C))
+## 4. 던전   
+  [던전class 자세히보기 ](https://github.com/SanyangForest/Text_RPG_2/wiki/%EB%8D%98%EC%A0%84-%EC%86%A1%EC%8A%B9%ED%9B%88&%EB%A7%B9%EC%A3%BC%ED%95%9C)
 - 전투 기능
 - 치명타, 회피 기능
 - 몬스터 랜덤생성 기능
