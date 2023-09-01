@@ -311,6 +311,12 @@ namespace Team_Text_RPG
 
                         myinventory.AddItemInventory(item); // 아이템을 인벤토리에 추가
 
+                        bool setEffectApplied = player.AddItemWithSetEffect(itemName);
+
+                        if (setEffectApplied)
+                        {
+                            Console.WriteLine("세트 효과가 적용되었습니다!");
+                        }
                         Console.WriteLine("아무 키나 누르면 메인 화면으로 돌아갑니다.");
                         Console.ReadKey();
                         DisplayGameIntro();
@@ -543,6 +549,10 @@ namespace Team_Text_RPG
         public float Exp { get; set; }
         public float MaxExp { get; set; }
 
+        private HashSet<string> setItems = new HashSet<string>(); //세트 아이템 관리용
+        
+        private int setItemCount = 0; //세트 아이템 관리용22
+
         public void Heal()
         {
             MaxHp = Level * 100;
@@ -572,6 +582,7 @@ namespace Team_Text_RPG
             Gold = gold;
             Exp = exp;
             Inventory = new List<string>();
+           
 
 
 
@@ -579,7 +590,57 @@ namespace Team_Text_RPG
 
             CriticalChance = 50; // 치명타 확률: 50%
             EvadeChance = 10; // 회피 확률: 10%
+            
         }
+        public void ApplySetEffects()
+        {
+            setItemCount = setItems.Count;
+            if (setItemCount == 2)
+            {
+                Atk += 2;
+                Def += 2;
+            }
+            else if (setItemCount == 3)
+            {
+                Atk += 5;
+                Def += 5;
+            }
+
+        }
+        public bool AddItemWithSetEffect(string itemName)
+        {
+
+            Inventory.Add(itemName);            // 아이템을 인벤토리에 추가합니다.
+
+            bool setEffectApplied = CheckAndApplySetEffect();           // 아이템이 세트 아이템인지 확인하고, 세트 효과를 체크하고 적용합니다.
+
+            return setEffectApplied;
+        }
+
+        private bool CheckAndApplySetEffect()
+        {
+            bool setEffectApplied = false;
+
+
+            if (setItems.Contains("철검") && setItems.Contains("사슬 갑옷") && setItems.Contains("나무 활"))    // setItems에 있는 세트 아이템의 갯수에 따라 세트 효과를 적용합니다.
+            {
+                Atk += 5;
+                Def += 5;
+                setEffectApplied = true;
+            }
+            else if ((setItems.Contains("철검") && setItems.Contains("사슬 갑옷")) ||
+                     (setItems.Contains("철검") && setItems.Contains("나무 활")) ||
+                     (setItems.Contains("사슬 갑옷") && setItems.Contains("나무 활")))
+            {
+                Atk += 2;
+                Def += 2;
+                setEffectApplied = true;
+            }
+
+            return setEffectApplied;
+        }
+
+
         public void ModifyGold(int amount)
         {
             Gold += amount;
@@ -587,6 +648,10 @@ namespace Team_Text_RPG
         public void RemoveItem(string itemName)
         {
             Inventory.Remove(itemName);
+
+            setItems.Remove(itemName);             // 아이템이 제거되면 setItems에서 해당 아이템을 제거합니다.
+
+            CheckAndApplySetEffect();             // 세트 효과를 다시 체크하여 적용합니다.
         }
         public int GetItemPrice(string itemName)
         {
