@@ -34,7 +34,7 @@ namespace Team_Text_RPG
             Console.Clear();
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(" ! ~ Dungeon Of Sparta ~ ! ");
+            Console.WriteLine(" ! ~ Dungeon Of Cheating City ~ ! ");
             Console.ResetColor();
             Console.WriteLine();
             Console.Write(" 이름을 입력해주세요 : ");
@@ -42,7 +42,7 @@ namespace Team_Text_RPG
             Console.WriteLine();
             Console.WriteLine(" 직업을 선택해주세요 ");
             Console.WriteLine();
-            Console.WriteLine(" 1: 전사 2: 궁수 3: 도적 ");
+            Console.WriteLine(" 1: 듀얼블레이드 2: 나이트로드 3: 섀도어 ");
             int input = CheckValidInput(1, 3);
             switch (input)
             {
@@ -63,18 +63,18 @@ namespace Team_Text_RPG
             switch (jobs)
             {
                 case Jobs.warrior:
-                    player = new Character(userName, "전사", 1, 200, 100, 150, 2000, 0.0f);
-                    Console.WriteLine($" 환영합니다 !!! {userName} 님, 전사를 선택하셨습니다.");
+                    player = new Character(userName, "듀얼블레이드", 1, 200, 100, 150, 2000, 0.0f);
+                    Console.WriteLine($" 환영합니다 !!! {userName} 님, 듀얼블레이드를 선택하셨습니다.");
                     // ex - 검, 사슬 갑옷
                     break;
                 case Jobs.archer:
-                    player = new Character(userName, "궁수", 1, 15, 5, 100, 2000, 0.0f);
-                    Console.WriteLine($" 환영합니다 !!! {userName} 님, 궁수를 선택하셨습니다.");
+                    player = new Character(userName, "나이트로드", 1, 15, 5, 100, 2000, 0.0f);
+                    Console.WriteLine($" 환영합니다 !!! {userName} 님, 나이트로드를 선택하셨습니다.");
                     // ex - 활, 천 갑옷
                     break;
                 case Jobs.thief:
-                    player = new Character(userName, "도적", 1, 12, 8, 130, 2000, 0.0f);
-                    Console.WriteLine($" 환영합니다 !!! {userName} 님, 도적를 선택하셨습니다.");
+                    player = new Character(userName, "섀도어", 1, 12, 8, 130, 2000, 0.0f);
+                    Console.WriteLine($" 환영합니다 !!! {userName} 님, 섀도어를 선택하셨습니다.");
                     // ex - 단검, 가죽 갑옷
                     break;
             }
