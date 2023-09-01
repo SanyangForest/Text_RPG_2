@@ -173,6 +173,7 @@ namespace Team_Text_RPG
             Console.WriteLine($" 이름 : {player.Name} ");
             Console.WriteLine($" 직업 : {player.Job} ");
             Console.WriteLine($" 레벨 : {player.Level} ");
+            player.ApplySetEffects();
             Console.Write($" 공격력 : {player.Atk} (+{equipmentitem.AddAtk})");
             Console.WriteLine();
             Console.Write($" 방어력 : {player.Def} (+{equipmentitem.AddDef})");
@@ -484,6 +485,7 @@ namespace Team_Text_RPG
 
         public class Equipment
         {
+            private int setItemCount = 0;
             public List<Item> EquipItems = new List<Item>();
             public void EquipingItem(Item item)
             {
@@ -500,11 +502,40 @@ namespace Team_Text_RPG
             public void AddEquipItem()
             {
                 AddAtk = AddDef = AddHp = 0;
-                for (int i = 0; EquipItems.Count != i; i++)
+                CheckAndApplySetEffect(); // 장비 아이템 추가 후 세트 효과 체크
+                if (setItemCount >= 2)
+                {
+                    AddAtk += 2;
+                }
+                if (setItemCount >= 3)
+                {
+                    AddAtk += 3;
+                }
+                for (int i = 0; i < EquipItems.Count; i++)
                 {
                     AddAtk += EquipItems[i].Atk;
                     AddDef += EquipItems[i].Def;
                     AddHp += EquipItems[i].Hp;
+                }
+
+                
+            }
+
+            private void CheckAndApplySetEffect()
+            {
+                setItemCount = 0;
+
+                if (EquipItems.Any(item => item.Name == "철검") &&
+                    EquipItems.Any(item => item.Name == "사슬 갑옷") &&
+                    EquipItems.Any(item => item.Name == "나무 활"))
+                {
+                    setItemCount = 3;
+                }
+                else if ((EquipItems.Any(item => item.Name == "철검") && EquipItems.Any(item => item.Name == "사슬 갑옷")) ||
+                         (EquipItems.Any(item => item.Name == "철검") && EquipItems.Any(item => item.Name == "나무 활")) ||
+                         (EquipItems.Any(item => item.Name == "사슬 갑옷") && EquipItems.Any(item => item.Name == "나무 활")))
+                {
+                    setItemCount = 2;
                 }
             }
             public int AddAtk { get; set; }
@@ -624,17 +655,13 @@ namespace Team_Text_RPG
 
             if (setItems.Contains("철검") && setItems.Contains("사슬 갑옷") && setItems.Contains("나무 활"))    // setItems에 있는 세트 아이템의 갯수에 따라 세트 효과를 적용합니다.
             {
-                Atk += 5;
-                Def += 5;
-                setEffectApplied = true;
+                setItemCount = 2;
             }
             else if ((setItems.Contains("철검") && setItems.Contains("사슬 갑옷")) ||
                      (setItems.Contains("철검") && setItems.Contains("나무 활")) ||
                      (setItems.Contains("사슬 갑옷") && setItems.Contains("나무 활")))
             {
-                Atk += 2;
-                Def += 2;
-                setEffectApplied = true;
+                setItemCount = 3;
             }
 
             return setEffectApplied;
