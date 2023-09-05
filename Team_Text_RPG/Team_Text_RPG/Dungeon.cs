@@ -111,10 +111,7 @@ namespace Team_Text_RPG
                                 Death();
                             }
                         }
-                        //else if((RandomMonsterList[i].IsDeath() == true))
-                        //{
-                        //    FiledMonsterCount--;
-                        //}
+                       
                        
                     }
                 }
@@ -220,12 +217,6 @@ namespace Team_Text_RPG
         }
 
 
-
-
-
-
-
-
     }
 
     public class FightUnit
@@ -292,9 +283,6 @@ namespace Team_Text_RPG
             }
 
         }
-
-
-
 
     }
 
