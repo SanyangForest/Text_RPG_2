@@ -16,8 +16,8 @@ namespace Team_Text_RPG
             Console.WriteLine(" 어떤 길로 갈까요?");
             Console.ResetColor();
             Console.WriteLine();
-            Console.WriteLine("1. 시작의 마을");
-            Console.WriteLine("2. 스파르타 던전");
+            Console.WriteLine("1. 커닝시티");
+            Console.WriteLine("2. 첫번째 동행");
             Console.WriteLine();
             Console.WriteLine(" 어디로 이동할지 번호를 입력해주세요 ");
 
@@ -48,7 +48,7 @@ namespace Team_Text_RPG
 
 
             Console.Clear();
-            Monster[] monsters = { new Monster("대포미니언", 2, 10, 190, 200),   new Monster("미니언", 1, 5, 100, 100),   new Monster("공허충", 3, 10, 105, 300) };
+            Monster[] monsters = { new Monster("킹 슬라임", 2, 10, 190, 200),   new Monster("옥토퍼스", 1, 5, 100, 100),   new Monster("크로코", 3, 10, 105, 300) };
 
             Random random = new Random();
 

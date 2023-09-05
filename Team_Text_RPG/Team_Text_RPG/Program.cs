@@ -15,6 +15,7 @@ namespace Team_Text_RPG
         public static Item clotharmor;
         public static Item dagger;
         public static Item leatherarmor;
+        public static Item TrinityForce;
         public static Dictionary<string, int> itemPrices = new Dictionary<string, int>();
 
         public enum Jobs
@@ -33,7 +34,7 @@ namespace Team_Text_RPG
             Console.Clear();
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(" ! ~ Dungeon Of Sparta ~ ! ");
+            Console.WriteLine(" ! ~ Dungeon Of Cheating City ~ ! ");
             Console.ResetColor();
             Console.WriteLine();
             Console.Write(" 이름을 입력해주세요 : ");
@@ -41,7 +42,7 @@ namespace Team_Text_RPG
             Console.WriteLine();
             Console.WriteLine(" 직업을 선택해주세요 ");
             Console.WriteLine();
-            Console.WriteLine(" 1: 전사 2: 궁수 3: 도적 ");
+            Console.WriteLine(" 1: 듀얼블레이드 2: 나이트로드 3: 섀도어 ");
             int input = CheckValidInput(1, 3);
             switch (input)
             {
@@ -62,22 +63,21 @@ namespace Team_Text_RPG
             switch (jobs)
             {
                 case Jobs.warrior:
-                    player = new Character(userName, "전사", 1, 200, 100, 150, 2000, 0.0f);
-                    Console.WriteLine($" 환영합니다 !!! {userName} 님, 전사를 선택하셨습니다.");
+                    player = new Character(userName, "듀얼블레이드", 1, 200, 100, 150, 2000, 0.0f);
+                    Console.WriteLine($" 환영합니다 !!! {userName} 님, 듀얼블레이드를 선택하셨습니다.");
                     // ex - 검, 사슬 갑옷
                     break;
                 case Jobs.archer:
-                    player = new Character(userName, "궁수", 1, 15, 5, 100, 2000, 0.0f);
-                    Console.WriteLine($" 환영합니다 !!! {userName} 님, 궁수를 선택하셨습니다.");
+                    player = new Character(userName, "나이트로드", 1, 15, 5, 100, 2000, 0.0f);
+                    Console.WriteLine($" 환영합니다 !!! {userName} 님, 나이트로드를 선택하셨습니다.");
                     // ex - 활, 천 갑옷
                     break;
                 case Jobs.thief:
-                    player = new Character(userName, "도적", 1, 12, 8, 130, 2000, 0.0f);
-                    Console.WriteLine($" 환영합니다 !!! {userName} 님, 도적를 선택하셨습니다.");
+                    player = new Character(userName, "섀도어", 1, 12, 8, 130, 2000, 0.0f);
+                    Console.WriteLine($" 환영합니다 !!! {userName} 님, 섀도어를 선택하셨습니다.");
                     // ex - 단검, 가죽 갑옷
                     break;
             }
-            Thread.Sleep(1000);
             Console.WriteLine();
             Console.Write(" 캐릭터 생성 중 ");
             Loading();
@@ -93,11 +93,12 @@ namespace Team_Text_RPG
 
             //아이템 정보 세팅
             sword = new Item("철검", "기초적인 철검", 1, 0, 0, 100, false);
-            chainmail = new Item("사슬 갑옷", "기초적인 사슬 갑옷", 0, 0, 0, 100, false);
+            chainmail = new Item("사슬 갑옷", "기초적인 사슬 갑옷", 0, 1, 0, 100, false);
             bow = new Item("나무 활", "기초적인 나무 활", 1, 0, 0, 100, false);
             clotharmor = new Item("천 갑옷", "기초적인 천 갑옷", 0, 1, 0, 100, false);
             dagger = new Item("단검", "기초적인 단검", 1, 0, 0, 100, false);
             leatherarmor = new Item("가죽 갑옷", "기초적인 가죽 갑옷", 0, 1, 0, 100, false);
+            TrinityForce = new Item("삼위일체", "준나 짱짱센 아이템", 33, 33, 33, 3300, false);
         }
 
         static void Loading() // 로딩 함수 추가
@@ -105,7 +106,7 @@ namespace Team_Text_RPG
             int i = 0;
             while (i < 3)
             {
-                Thread.Sleep(00);
+                Thread.Sleep(300);
                 Console.Write(" ▷");
                 i++;
             }
@@ -171,6 +172,7 @@ namespace Team_Text_RPG
             Console.WriteLine($" 이름 : {player.Name} ");
             Console.WriteLine($" 직업 : {player.Job} ");
             Console.WriteLine($" 레벨 : {player.Level} ");
+            player.ApplySetEffects();
             Console.Write($" 공격력 : {player.Atk} (+{equipmentitem.AddAtk})");
             Console.WriteLine();
             Console.Write($" 방어력 : {player.Def} (+{equipmentitem.AddDef})");
@@ -232,6 +234,8 @@ namespace Team_Text_RPG
             Console.WriteLine();
             Console.WriteLine(" 아이템을 구매/판매할 수 있습니다. ");
             Console.WriteLine();
+            Console.WriteLine(" 버튼을 누르면 구매 하실 수 있습니다");
+            Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine($" [보유 골드] \t{player.Gold} G ");
             Console.ResetColor();
@@ -241,18 +245,15 @@ namespace Team_Text_RPG
             Console.ResetColor();
             Console.WriteLine();
             // 아이템 목록 출력 test.. 
-            Console.WriteLine("1. 도란검. 100메소");
-            Console.WriteLine("2. 도란방패. 150메소");
-            Console.WriteLine("3. 도란반지. 200메소");
-            Console.WriteLine("4. 삼위일체. 333메소");
-            Console.WriteLine("5. 판매하기");
-            Console.WriteLine("0. 나가기");
-
+            
+            Console.WriteLine(" 1. 철검. 100메소");
+            Console.WriteLine(" 2. 사슬 갑옷. 100메소");
+            Console.WriteLine(" 3. 나무 활. 100메소");
+            Console.WriteLine(" 4. 가죽갑옷. 100메소");
+            Console.WriteLine(" 5. 삼위일체. 3300메소");
+            Console.WriteLine(" 6. 판매하기");
+            Console.WriteLine(" 0. 나가기");
             Console.WriteLine();
-            Console.WriteLine(" 1. 구매하기 ");
-            Console.WriteLine(" 2. 판매하기 ");
-            Console.WriteLine();
-            Console.WriteLine(" 0. 나가기 ");
             Console.WriteLine();
             Console.WriteLine(" 원하시는 행동을 입력해주세요! ");
 
@@ -275,6 +276,9 @@ namespace Team_Text_RPG
                     BuyItem(clotharmor);
                     break;
                 case 5:
+                    BuyItem(TrinityForce);
+                    break;
+                case 6:
                     SellItem();
                     break;
             }
@@ -304,6 +308,12 @@ namespace Team_Text_RPG
 
                         myinventory.AddItemInventory(item); // 아이템을 인벤토리에 추가
 
+                        bool setEffectApplied = player.AddItemWithSetEffect(itemName);
+
+                        if (setEffectApplied)
+                        {
+                            Console.WriteLine("세트 효과가 적용되었습니다!");
+                        }
                         Console.WriteLine("아무 키나 누르면 메인 화면으로 돌아갑니다.");
                         Console.ReadKey();
                         DisplayGameIntro();
@@ -325,7 +335,7 @@ namespace Team_Text_RPG
         static void SellItem()
         {
             Console.Clear();
-            Console.WriteLine("판매할 아이템을 선택하세요:");
+            Console.WriteLine("미안하네 지금은 구매할 수 없네 나도 돈이 부족하거든 :");
 
             for (int i = 0; i < player.Inventory.Count; i++)
             {
@@ -471,6 +481,7 @@ namespace Team_Text_RPG
 
         public class Equipment
         {
+            private int setItemCount = 0;
             public List<Item> EquipItems = new List<Item>();
             public void EquipingItem(Item item)
             {
@@ -487,11 +498,40 @@ namespace Team_Text_RPG
             public void AddEquipItem()
             {
                 AddAtk = AddDef = AddHp = 0;
-                for (int i = 0; EquipItems.Count != i; i++)
+                CheckAndApplySetEffect(); // 장비 아이템 추가 후 세트 효과 체크
+                if (setItemCount >= 2)
+                {
+                    AddAtk += 2;
+                }
+                if (setItemCount >= 3)
+                {
+                    AddAtk += 3;
+                }
+                for (int i = 0; i < EquipItems.Count; i++)
                 {
                     AddAtk += EquipItems[i].Atk;
                     AddDef += EquipItems[i].Def;
                     AddHp += EquipItems[i].Hp;
+                }
+
+                
+            }
+
+            private void CheckAndApplySetEffect()
+            {
+                setItemCount = 0;
+
+                if (EquipItems.Any(item => item.Name == "철검") &&
+                    EquipItems.Any(item => item.Name == "사슬 갑옷") &&
+                    EquipItems.Any(item => item.Name == "나무 활"))
+                {
+                    setItemCount = 3;
+                }
+                else if ((EquipItems.Any(item => item.Name == "철검") && EquipItems.Any(item => item.Name == "사슬 갑옷")) ||
+                         (EquipItems.Any(item => item.Name == "철검") && EquipItems.Any(item => item.Name == "나무 활")) ||
+                         (EquipItems.Any(item => item.Name == "사슬 갑옷") && EquipItems.Any(item => item.Name == "나무 활")))
+                {
+                    setItemCount = 2;
                 }
             }
             public int AddAtk { get; set; }
@@ -536,6 +576,10 @@ namespace Team_Text_RPG
         public float Exp { get; set; }
         public float MaxExp { get; set; }
 
+        private HashSet<string> setItems = new HashSet<string>(); //세트 아이템 관리용
+        
+        private int setItemCount = 0; //세트 아이템 관리용22
+
         public void Heal()
         {
             MaxHp = Level * 100;
@@ -565,6 +609,7 @@ namespace Team_Text_RPG
             Gold = gold;
             Exp = exp;
             Inventory = new List<string>();
+           
 
 
 
@@ -572,7 +617,53 @@ namespace Team_Text_RPG
 
             CriticalChance = 50; // 치명타 확률: 50%
             EvadeChance = 10; // 회피 확률: 10%
+            
         }
+        public void ApplySetEffects()
+        {
+            setItemCount = setItems.Count;
+            if (setItemCount == 2)
+            {
+                Atk += 2;
+                Def += 2;
+            }
+            else if (setItemCount == 3)
+            {
+                Atk += 5;
+                Def += 5;
+            }
+
+        }
+        public bool AddItemWithSetEffect(string itemName)
+        {
+
+            Inventory.Add(itemName);            // 아이템을 인벤토리에 추가합니다.
+
+            bool setEffectApplied = CheckAndApplySetEffect();           // 아이템이 세트 아이템인지 확인하고, 세트 효과를 체크하고 적용합니다.
+
+            return setEffectApplied;
+        }
+
+        private bool CheckAndApplySetEffect()
+        {
+            bool setEffectApplied = false;
+
+
+            if (setItems.Contains("철검") && setItems.Contains("사슬 갑옷") && setItems.Contains("나무 활"))    // setItems에 있는 세트 아이템의 갯수에 따라 세트 효과를 적용합니다.
+            {
+                setItemCount = 2;
+            }
+            else if ((setItems.Contains("철검") && setItems.Contains("사슬 갑옷")) ||
+                     (setItems.Contains("철검") && setItems.Contains("나무 활")) ||
+                     (setItems.Contains("사슬 갑옷") && setItems.Contains("나무 활")))
+            {
+                setItemCount = 3;
+            }
+
+            return setEffectApplied;
+        }
+
+
         public void ModifyGold(int amount)
         {
             Gold += amount;
@@ -580,6 +671,10 @@ namespace Team_Text_RPG
         public void RemoveItem(string itemName)
         {
             Inventory.Remove(itemName);
+
+            setItems.Remove(itemName);             // 아이템이 제거되면 setItems에서 해당 아이템을 제거합니다.
+
+            CheckAndApplySetEffect();             // 세트 효과를 다시 체크하여 적용합니다.
         }
         public int GetItemPrice(string itemName)
         {
